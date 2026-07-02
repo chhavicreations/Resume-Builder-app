@@ -1,14 +1,12 @@
 import { useState } from "react";
 import ATSAnalyzer from "./pages/ATSAnalyzer";
-import ResumeDesigner from "./pages/ResumeDesigner";
 import JobMatcher from "./pages/JobMatcher";
 import InterviewCoach from "./pages/InterviewCoach";
 
-type Tab = "ats" | "designer" | "matcher" | "coach";
+type Tab = "ats" | "matcher" | "coach";
 
 const TABS: { id: Tab; label: string; icon: string; desc: string }[] = [
   { id: "ats", label: "ATS Analyzer", icon: "📊", desc: "Score your resume" },
-  { id: "designer", label: "Resume Designer", icon: "🎨", desc: "5 pro templates" },
   { id: "matcher", label: "Job Match", icon: "🎯", desc: "Match to a JD" },
   { id: "coach", label: "Interview Coach", icon: "🎤", desc: "Practice questions" },
 ];
@@ -53,7 +51,6 @@ export default function App() {
       {/* ── Page Content ─────────────────────────────────── */}
       <div className="flex-1">
         {tab === "ats" && <ATSAnalyzer />}
-        {tab === "designer" && <ResumeDesigner />}
         {tab === "matcher" && <JobMatcher />}
         {tab === "coach" && <InterviewCoach />}
       </div>
