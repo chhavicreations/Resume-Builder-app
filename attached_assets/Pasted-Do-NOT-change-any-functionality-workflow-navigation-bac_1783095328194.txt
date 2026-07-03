@@ -1,0 +1,289 @@
+Do NOT change any functionality, workflow, navigation, backend logic, upload process, ATS analyzer, AI features, categories, filtering, export process, or page layout.
+
+Only redesign ALL resume templates to look premium, modern, recruiter-quality, and professional.
+
+The current templates look basic, colorful, and repetitive. Replace them with realistic resumes that look like they were designed by professional resume designers.
+
+Requirements:
+
+## Overall
+- Every template must be unique.
+- No duplicated layouts with different colors.
+- Each template should have its own layout, typography, spacing, section arrangement, and visual hierarchy.
+- Templates must look production-ready.
+- White background should be the default for ATS templates.
+- Use clean typography and generous whitespace.
+- Resume previews should resemble real resumes, not mockups.
+
+## Categories
+
+Create completely different resume collections for each category.
+
+### Software Developer
+Create 15 unique templates including:
+- Modern ATS
+- Google Style
+- Microsoft Style
+- Minimal Engineer
+- Startup Resume
+- Executive Tech Lead
+- One Column ATS
+- Two Column Professional
+- Clean Developer
+- Dark Header
+- Silicon Valley
+- Full Stack
+- Backend Engineer
+- Frontend Engineer
+- AI Engineer
+
+Use sections like:
+Projects
+GitHub
+Technical Skills
+Tech Stack
+Certifications
+Languages
+Achievements
+
+----------------------------------------
+
+### Graphic Designer
+
+Create 15 premium creative resumes.
+
+Include layouts with:
+Portfolio section
+Behance
+Dribbble
+Adobe Skills
+Creative Profile
+Large typography
+Minimal editorial layouts
+Magazine inspired layouts
+Swiss design
+Creative grids
+
+Should look similar to high-end designer portfolios.
+
+----------------------------------------
+
+### UI/UX Designer
+
+Include:
+Case Studies
+Design Process
+Research
+Figma
+Prototype
+User Testing
+Design Systems
+Portfolio
+
+Modern Apple-inspired layouts.
+
+----------------------------------------
+
+### Marketing
+
+Professional marketing layouts with:
+Campaign Results
+ROI
+Analytics
+SEO
+Growth Metrics
+Social Media
+Certifications
+
+----------------------------------------
+
+### Sales
+
+Professional sales resumes featuring:
+Revenue
+Targets
+Achievements
+KPIs
+Negotiations
+CRM
+Leadership
+
+----------------------------------------
+
+### Human Resources
+
+Include:
+Recruitment
+HRIS
+Employee Relations
+Compliance
+Training
+Performance Management
+Hiring Metrics
+
+----------------------------------------
+
+### Finance
+
+Professional financial layouts.
+
+Include:
+Forecasting
+Financial Analysis
+Auditing
+Accounting
+Reporting
+Compliance
+Excel
+SAP
+
+Corporate appearance.
+
+----------------------------------------
+
+### Accounting
+
+ATS-friendly accounting templates.
+
+Include:
+Tax
+Bookkeeping
+Payroll
+Financial Statements
+Audit
+Compliance
+
+----------------------------------------
+
+## Template Styles
+
+Create templates inspired by:
+
+- Google
+- Microsoft
+- Apple
+- Deloitte
+- EY
+- PwC
+- McKinsey
+- Resume.io
+- Novoresume
+- Enhancv
+
+Do NOT copy branding.
+
+Only use their clean professional design style.
+
+----------------------------------------
+
+## Design Rules
+
+Use
+
+- modern typography
+- proper spacing
+- perfect alignment
+- consistent margins
+- recruiter-friendly hierarchy
+- subtle dividers
+- elegant icons where appropriate
+- minimal color usage
+- premium appearance
+
+Avoid
+
+- cartoon colors
+- oversized headers
+- thick borders
+- large colored backgrounds
+- childish graphics
+
+----------------------------------------
+
+## Colors
+
+Mostly use
+
+White
+
+Black
+
+Dark Gray
+
+Navy
+
+Slate
+
+Muted Blue
+
+Professional Green
+
+Very light accents only.
+
+No bright pink, cyan, orange, or random gradients.
+
+----------------------------------------
+
+## Resume Preview Cards
+
+Increase preview size.
+
+Cards should display:
+
+- Resume preview
+- Template name
+- ATS Score badge
+- Premium badge if applicable
+- Single Column / Two Column badge
+- Favorite icon
+- Hover animation
+- Slight shadow
+- Rounded corners
+
+Hover should slightly lift the card.
+
+----------------------------------------
+
+## ATS
+
+Every ATS template should follow recruiter standards.
+
+Use:
+- readable fonts
+- clean sections
+- proper spacing
+- no unnecessary graphics
+- ATS-friendly layouts
+
+----------------------------------------
+
+## Diversity
+
+Generate at least 80-100 visually different templates across all categories.
+
+Changing only colors does NOT count as a different template.
+
+Each template should have:
+- different header
+- different layout
+- different typography
+- different spacing
+- different section arrangement
+- different visual identity
+
+----------------------------------------
+
+Maintain full responsiveness.
+
+Desktop:
+3-4 template cards per row.
+
+Tablet:
+2 cards.
+
+Mobile:
+1 card.
+
+Do not modify any application functionality.
+
+Only improve the visual quality and professionalism of every resume template until they match premium resume platforms like Resume.io, Novoresume, and Enhancv while remaining ATS-friendly.
