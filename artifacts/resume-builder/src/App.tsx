@@ -2,13 +2,15 @@ import { useState } from "react";
 import ATSAnalyzer from "./pages/ATSAnalyzer";
 import JobMatcher from "./pages/JobMatcher";
 import InterviewCoach from "./pages/InterviewCoach";
+import ResumeRedesign from "./pages/ResumeRedesign";
 
-type Tab = "ats" | "matcher" | "coach";
+type Tab = "ats" | "matcher" | "coach" | "redesign";
 
 const TABS: { id: Tab; label: string; icon: string }[] = [
-  { id: "ats",     label: "ATS Analyzer",     icon: "📊" },
-  { id: "matcher", label: "Job Match",         icon: "🎯" },
-  { id: "coach",   label: "Interview Coach",   icon: "🎤" },
+  { id: "ats",      label: "ATS Analyzer",    icon: "📊" },
+  { id: "matcher",  label: "Job Match",        icon: "🎯" },
+  { id: "coach",    label: "Interview Coach",  icon: "🎤" },
+  { id: "redesign", label: "Resume Redesign",  icon: "✨" },
 ];
 
 export default function App() {
@@ -61,9 +63,10 @@ export default function App() {
 
       {/* ── Page ───────────────────────────────────────────── */}
       <main className="flex-1">
-        {tab === "ats"     && <ATSAnalyzer />}
-        {tab === "matcher" && <JobMatcher />}
-        {tab === "coach"   && <InterviewCoach />}
+        {tab === "ats"      && <ATSAnalyzer />}
+        {tab === "matcher"  && <JobMatcher />}
+        {tab === "coach"    && <InterviewCoach />}
+        {tab === "redesign" && <ResumeRedesign />}
       </main>
     </div>
   );
