@@ -1,4 +1,9 @@
 import { useState, useCallback, useRef } from "react";
+import {
+  Upload, Key, Wrench, CalendarDays, Bot, CheckCircle2,
+  XCircle, RotateCcw, Loader2, ArrowRight, TrendingUp,
+  FileText, Lightbulb, Plus,
+} from "lucide-react";
 import { extractText } from "../lib/extractor";
 import { analyzeJobMatch, JDAnalysisResult } from "../lib/jdAnalyzer";
 
@@ -23,7 +28,7 @@ function RadialScore({ score, label, color }: { score: number; label: string; co
   );
 }
 
-/* ── Bar Chart Row ──────────────────────────────────────── */
+/* ── Bar Row ────────────────────────────────────────────── */
 function BarRow({ label, value, color }: { label: string; value: number; color: string }) {
   return (
     <div className="space-y-1.5">
@@ -42,10 +47,12 @@ function BarRow({ label, value, color }: { label: string; value: number; color: 
 /* ── Keyword Tag ────────────────────────────────────────── */
 function KeywordTag({ word, matched }: { word: string; matched: boolean }) {
   return (
-    <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium border transition-all ${
+    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border transition-all ${
       matched ? "bg-emerald-50 text-emerald-700 border-emerald-200" : "bg-red-50 text-red-500 border-red-200"
     }`}>
-      <span className={`w-1 h-1 rounded-full ${matched ? "bg-emerald-500" : "bg-red-400"}`} />
+      {matched
+        ? <CheckCircle2 className="w-3 h-3 text-emerald-500 flex-shrink-0" />
+        : <XCircle className="w-3 h-3 text-red-400 flex-shrink-0" />}
       {word}
     </span>
   );
@@ -72,7 +79,7 @@ function UploadZoneSmall({ label, onFile, fileName }: { label: string; onFile: (
       {fileName ? (
         <>
           <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center mx-auto mb-2">
-            <span className="text-emerald-600 text-sm font-bold">✓</span>
+            <CheckCircle2 className="w-4 h-4 text-emerald-600" />
           </div>
           <p className="text-emerald-700 font-semibold text-sm truncate">{fileName}</p>
           <p className="text-xs text-emerald-500 mt-0.5">Click to replace</p>
@@ -80,9 +87,7 @@ function UploadZoneSmall({ label, onFile, fileName }: { label: string; onFile: (
       ) : (
         <>
           <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-2">
-            <svg className="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
-            </svg>
+            <Upload className="w-4 h-4 text-slate-400" strokeWidth={1.8} />
           </div>
           <p className="text-sm font-medium text-slate-600">{label}</p>
           <p className="text-xs text-slate-400 mt-0.5">PDF or DOCX</p>
@@ -99,18 +104,20 @@ function Dashboard({ result, onReset }: { result: JDAnalysisResult; onReset: () 
   const scoreLabel = sc >= 70 ? "Strong Match" : sc >= 50 ? "Moderate Match" : "Low Match";
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-8 space-y-6">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-8 space-y-6 animate-fade-in">
 
       <div className="flex items-start justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Job Match Analysis</h1>
           <p className="text-sm text-slate-400 mt-1">How well your resume matches the job description</p>
         </div>
-        <button onClick={onReset} className="btn-secondary text-[13px] flex-shrink-0">↑ Analyze Again</button>
+        <button onClick={onReset} className="btn-secondary text-[13px] flex-shrink-0 gap-1.5">
+          <RotateCcw className="w-3.5 h-3.5" />Analyze Again
+        </button>
       </div>
 
-      {/* Overall score card */}
-      <div className="card-base p-6 sm:p-8">
+      {/* Overall score */}
+      <div className="card-base p-6 sm:p-8 animate-slide-up">
         <div className="flex flex-col sm:flex-row items-center gap-8">
           <div className="flex flex-col items-center gap-3 flex-shrink-0">
             <div className="relative w-40 h-40">
@@ -132,21 +139,21 @@ function Dashboard({ result, onReset }: { result: JDAnalysisResult; onReset: () 
             </span>
           </div>
           <div className="flex-1 space-y-4 w-full">
-            <BarRow label="Keyword Match"    value={result.keywordMatch}    color="#6C63FF" />
-            <BarRow label="Skill Match"      value={result.skillMatch}      color="#0ea5e9" />
-            <BarRow label="Experience Match" value={result.experienceMatch} color="#8B5CF6" />
+            <BarRow label="Keyword Match"     value={result.keywordMatch}    color="#6C63FF" />
+            <BarRow label="Skill Match"       value={result.skillMatch}      color="#0ea5e9" />
+            <BarRow label="Experience Match"  value={result.experienceMatch} color="#8B5CF6" />
             <BarRow label="ATS Compatibility" value={result.atsCompatibility} color="#10b981" />
           </div>
         </div>
       </div>
 
       {/* Sub-score rings */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 animate-slide-up delay-100">
         {[
-          { score: result.keywordMatch,    label: "Keyword Match",  color: "#6C63FF" },
-          { score: result.skillMatch,      label: "Skill Match",    color: "#0ea5e9" },
-          { score: result.experienceMatch, label: "Experience",     color: "#8B5CF6" },
-          { score: result.atsCompatibility,label: "ATS Friendly",   color: "#10b981" },
+          { score: result.keywordMatch,     label: "Keyword Match", color: "#6C63FF" },
+          { score: result.skillMatch,       label: "Skill Match",   color: "#0ea5e9" },
+          { score: result.experienceMatch,  label: "Experience",    color: "#8B5CF6" },
+          { score: result.atsCompatibility, label: "ATS Friendly",  color: "#10b981" },
         ].map(p => (
           <div key={p.label} className="card-base card-hover p-5 flex items-center justify-center">
             <RadialScore {...p} />
@@ -155,10 +162,12 @@ function Dashboard({ result, onReset }: { result: JDAnalysisResult; onReset: () 
       </div>
 
       {/* Keywords */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 animate-slide-up delay-200">
         <div className="card-base p-6 space-y-3">
-          <h3 className="text-sm font-semibold text-slate-800">Keyword Match Analysis</h3>
-          <p className="text-xs text-slate-400">{result.matchedKeywords.length} of {result.jdKeywords.length} JD keywords found in your resume</p>
+          <h3 className="text-sm font-semibold text-slate-800 flex items-center gap-2">
+            <Key className="w-4 h-4 text-[#6C63FF]" />Keyword Match Analysis
+          </h3>
+          <p className="text-xs text-slate-400">{result.matchedKeywords.length} of {result.jdKeywords.length} JD keywords found</p>
           <div className="flex flex-wrap gap-2">
             {result.jdKeywords.map(kw => <KeywordTag key={kw} word={kw} matched={result.matchedKeywords.includes(kw)} />)}
           </div>
@@ -166,7 +175,7 @@ function Dashboard({ result, onReset }: { result: JDAnalysisResult; onReset: () 
         <div className="card-base p-6 space-y-5">
           <div>
             <h3 className="text-sm font-semibold text-red-600 mb-2 flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-red-400" />Missing Keywords
+              <XCircle className="w-4 h-4" />Missing Keywords
             </h3>
             <div className="flex flex-wrap gap-2">
               {result.missingKeywords.length > 0
@@ -178,7 +187,7 @@ function Dashboard({ result, onReset }: { result: JDAnalysisResult; onReset: () 
           </div>
           <div>
             <h3 className="text-sm font-semibold text-blue-600 mb-2 flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />Recommended Skills to Add
+              <Plus className="w-4 h-4" />Recommended Skills to Add
             </h3>
             <div className="flex flex-wrap gap-2">
               {result.recommendedSkills.map(s => (
@@ -189,9 +198,11 @@ function Dashboard({ result, onReset }: { result: JDAnalysisResult; onReset: () 
         </div>
       </div>
 
-      {/* Resume changes */}
-      <div className="card-base p-6">
-        <h3 className="text-sm font-semibold text-slate-800 mb-4">Recommended Resume Changes</h3>
+      {/* Recommendations */}
+      <div className="card-base p-6 animate-slide-up delay-300">
+        <h3 className="text-sm font-semibold text-slate-800 mb-4 flex items-center gap-2">
+          <Lightbulb className="w-4 h-4 text-[#6C63FF]" />Recommended Resume Changes
+        </h3>
         <ul className="space-y-3">
           {result.resumeChanges.map((change, i) => (
             <li key={i} className="flex gap-3 text-sm text-slate-700 leading-relaxed">
@@ -204,8 +215,10 @@ function Dashboard({ result, onReset }: { result: JDAnalysisResult; onReset: () 
 
       {/* Skills comparison */}
       {(result.skillsInJD.length > 0 || result.skillsInResume.length > 0) && (
-        <div className="card-base p-6">
-          <h3 className="text-sm font-semibold text-slate-800 mb-5">Technical Skills Breakdown</h3>
+        <div className="card-base p-6 animate-slide-up delay-500">
+          <h3 className="text-sm font-semibold text-slate-800 mb-5 flex items-center gap-2">
+            <Wrench className="w-4 h-4 text-[#6C63FF]" />Technical Skills Breakdown
+          </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div>
               <p className="section-label mb-3">Skills in Job Description</p>
@@ -244,6 +257,13 @@ type State =
   | { phase: "done"; result: JDAnalysisResult }
   | { phase: "error"; message: string };
 
+const FEATURE_CARDS = [
+  { Icon: Key,          label: "Keyword Match",    desc: "Find JD keywords in your resume",  color: "bg-violet-50 text-[#6C63FF]" },
+  { Icon: Wrench,       label: "Skill Match",      desc: "Compare technical skills",          color: "bg-sky-50 text-sky-600"      },
+  { Icon: CalendarDays, label: "Experience Match", desc: "Years of experience alignment",     color: "bg-purple-50 text-purple-600" },
+  { Icon: Bot,          label: "ATS Score",        desc: "Parser compatibility check",        color: "bg-emerald-50 text-emerald-600" },
+];
+
 export default function JobMatcher() {
   const [resumeFile, setResumeFile] = useState<File | null>(null);
   const [resumeText, setResumeText] = useState("");
@@ -268,27 +288,38 @@ export default function JobMatcher() {
     return <Dashboard result={state.result} onReset={() => setState({ phase: "input" })} />;
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-8 py-16 space-y-10">
+    <div className="max-w-4xl mx-auto px-4 sm:px-8 py-16 space-y-10 relative">
+
+      {/* Floating decorations */}
+      <div className="absolute top-12 right-8 w-14 h-14 rounded-2xl bg-orange-100/60 rotate-12 animate-float pointer-events-none" />
+      <div className="absolute bottom-24 left-6 w-8 h-8 rounded-xl bg-amber-100/70 -rotate-6 animate-float delay-500 pointer-events-none" />
 
       {/* Hero */}
-      <div className="text-center space-y-4">
+      <div className="text-center space-y-4 animate-slide-up">
         <div className="inline-flex items-center gap-2 bg-orange-50 text-orange-600 text-xs font-semibold px-4 py-2 rounded-full border border-orange-200">
-          <span className="w-1.5 h-1.5 rounded-full bg-orange-500" />
+          <Target className="w-3 h-3" />
           Job Match Analyzer
         </div>
         <h1 className="text-4xl font-bold text-slate-900 tracking-tight leading-tight">
-          How well does your resume <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-amber-500">match the job?</span>
+          How well does your resume{" "}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-amber-500">match the job?</span>
         </h1>
-        <p className="text-slate-500 max-w-md mx-auto leading-relaxed">Upload your resume and paste the job description to get keyword, skill, and ATS match scores.</p>
+        <p className="text-slate-500 max-w-md mx-auto leading-relaxed">
+          Upload your resume and paste the job description to get keyword, skill, and ATS match scores.
+        </p>
       </div>
 
       {/* Input panel */}
-      <div className="card-base p-6 sm:p-8 space-y-6">
+      <div className="card-base p-6 sm:p-8 space-y-6 animate-slide-up delay-100">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <div className="space-y-2">
             <label className="section-label">Your Resume</label>
             <UploadZoneSmall label="Upload Resume (PDF or DOCX)" onFile={handleResumeFile} fileName={resumeFile?.name} />
-            {resumeText && <p className="text-xs text-emerald-600 flex items-center gap-1.5"><span className="w-1 h-1 rounded-full bg-emerald-500" />{resumeText.split(/\s+/).length} words extracted</p>}
+            {resumeText && (
+              <p className="text-xs text-emerald-600 flex items-center gap-1.5">
+                <CheckCircle2 className="w-3 h-3" />{resumeText.split(/\s+/).length} words extracted
+              </p>
+            )}
           </div>
           <div className="space-y-2">
             <label className="section-label">Job Description</label>
@@ -298,35 +329,36 @@ export default function JobMatcher() {
               placeholder="Paste the full job description here…"
               className="input-base h-40 resize-none"
             />
-            {jdText && <p className="text-xs text-blue-600 flex items-center gap-1.5"><span className="w-1 h-1 rounded-full bg-blue-400" />{jdText.split(/\s+/).filter(Boolean).length} words in JD</p>}
+            {jdText && (
+              <p className="text-xs text-blue-600 flex items-center gap-1.5">
+                <FileText className="w-3 h-3" />{jdText.split(/\s+/).filter(Boolean).length} words in JD
+              </p>
+            )}
           </div>
         </div>
 
         {state.phase === "error" && (
-          <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-center text-red-600 text-sm font-medium">
-            {state.message}
+          <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-center text-red-600 text-sm font-medium flex items-center justify-center gap-2">
+            <XCircle className="w-4 h-4" />{state.message}
           </div>
         )}
 
         <div className="flex justify-center pt-1">
           <button onClick={handleAnalyze} disabled={state.phase === "loading"} className="btn-primary px-10 py-3 text-[15px]">
             {state.phase === "loading"
-              ? <><span className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />Analyzing…</>
-              : "Analyze Match"}
+              ? <><Loader2 className="w-4 h-4 animate-spin" />Analyzing…</>
+              : <><ArrowRight className="w-4 h-4" />Analyze Match</>}
           </button>
         </div>
       </div>
 
-      {/* Feature hints */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        {[
-          { icon: "🔑", label: "Keyword Match",    desc: "Find JD keywords in your resume" },
-          { icon: "🛠",  label: "Skill Match",      desc: "Compare technical skills" },
-          { icon: "📅", label: "Experience Match",  desc: "Years of experience alignment" },
-          { icon: "🤖", label: "ATS Score",         desc: "Parser compatibility check" },
-        ].map(({ icon, label, desc }) => (
+      {/* Feature cards */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 animate-slide-up delay-200">
+        {FEATURE_CARDS.map(({ Icon, label, desc, color }) => (
           <div key={label} className="card-base card-hover p-4 text-center">
-            <div className="text-2xl mb-2">{icon}</div>
+            <div className={`w-10 h-10 rounded-xl ${color} flex items-center justify-center mx-auto mb-3`}>
+              <Icon className="w-5 h-5" />
+            </div>
             <p className="text-xs font-semibold text-slate-700">{label}</p>
             <p className="text-xs text-slate-400 mt-0.5 leading-relaxed">{desc}</p>
           </div>
