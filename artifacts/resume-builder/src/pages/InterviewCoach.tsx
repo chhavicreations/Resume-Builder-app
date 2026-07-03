@@ -1,4 +1,9 @@
 import { useState, useCallback, useRef } from "react";
+import {
+  Upload, ChevronDown, CheckCircle2, Mic2, Sparkles,
+  Briefcase, Code2, Star, ArrowRight, Lightbulb, Trophy,
+  ThumbsUp, Dumbbell, Loader2,
+} from "lucide-react";
 import { extractText } from "../lib/extractor";
 import { generateQuestions, scoreAnswer, InterviewQuestion, QuestionCategory } from "../lib/questionGenerator";
 
@@ -53,16 +58,13 @@ function QuestionCard({ q, expanded, onToggle }: { q: InterviewQuestion; expande
             <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-full ${DIFF_STYLES[q.difficulty]}`}>{q.difficulty}</span>
           </div>
         </div>
-        <svg className={`w-4 h-4 text-slate-400 flex-shrink-0 mt-0.5 transition-transform duration-200 ${expanded ? "rotate-180" : ""}`}
-          fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"/>
-        </svg>
+        <ChevronDown className={`w-4 h-4 text-slate-400 flex-shrink-0 mt-0.5 transition-transform duration-200 ${expanded ? "rotate-180" : ""}`} />
       </button>
 
       {expanded && (
         <div className="px-5 pb-5 space-y-4 border-t border-slate-100 pt-4">
           <div className="bg-slate-50 rounded-xl p-4 border border-slate-100">
-            <p className="section-label mb-2">💡 Sample Answer</p>
+            <p className="section-label mb-2 flex items-center gap-1.5"><Lightbulb className="w-3 h-3 text-amber-500" />Sample Answer</p>
             <p className="text-sm text-slate-700 leading-relaxed">{q.sampleAnswer}</p>
           </div>
           {q.followUp && (
@@ -116,7 +118,14 @@ function MockInterview({ questions, onExit }: { questions: InterviewQuestion[]; 
     return (
       <div className="flex flex-col items-center justify-center min-h-[400px] py-12 space-y-8">
         <div className="text-center space-y-2">
-          <div className="text-5xl mb-4">{avg >= 75 ? "🎉" : avg >= 50 ? "👍" : "💪"}</div>
+          <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-md"
+          style={{ background: avg >= 75 ? "#d1fae5" : avg >= 50 ? "#fef9c3" : "#fee2e2" }}>
+          {avg >= 75
+            ? <Trophy className="w-8 h-8 text-emerald-500" />
+            : avg >= 50
+            ? <ThumbsUp className="w-8 h-8 text-amber-500" />
+            : <Dumbbell className="w-8 h-8 text-red-400" />}
+        </div>
           <h2 className="text-2xl font-bold text-slate-900 tracking-tight">Mock Interview Complete!</h2>
           <p className="text-slate-400">You answered {total} questions</p>
         </div>
@@ -197,7 +206,7 @@ function MockInterview({ questions, onExit }: { questions: InterviewQuestion[]; 
           <div className="space-y-2">
             {result.feedback.map((f, i) => (
               <p key={i} className="text-sm text-slate-700 flex gap-2.5 leading-relaxed">
-                <span className="text-[#6C63FF] flex-shrink-0 mt-0.5">→</span>{f}
+                <ArrowRight className="w-4 h-4 text-[#6C63FF] flex-shrink-0 mt-0.5" />{f}
               </p>
             ))}
           </div>
@@ -294,7 +303,7 @@ export default function InterviewCoach() {
         </div>
         {generated && (
           <button onClick={() => setMode("mock")} className="btn-primary bg-gradient-to-r from-rose-500 to-pink-500 shadow-[0_4px_14px_rgba(244,63,94,0.35)] hover:shadow-[0_6px_20px_rgba(244,63,94,0.45)]">
-            🎤 Start Mock Interview
+            <Mic2 className="w-4 h-4" />Start Mock Interview
           </button>
         )}
       </div>
@@ -316,7 +325,7 @@ export default function InterviewCoach() {
               {resumeFile ? (
                 <>
                   <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center mx-auto mb-2">
-                    <span className="text-emerald-600 text-sm font-bold">✓</span>
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                   </div>
                   <p className="text-emerald-700 font-semibold text-sm truncate">{resumeFile.name}</p>
                   <p className="text-xs text-emerald-500 mt-0.5">Click to replace</p>
@@ -324,9 +333,7 @@ export default function InterviewCoach() {
               ) : (
                 <>
                   <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-2">
-                    <svg className="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
-                    </svg>
+                    <Upload className="w-4 h-4 text-slate-400" strokeWidth={1.8} />
                   </div>
                   <p className="text-sm font-medium text-slate-500">Upload Resume</p>
                   <p className="text-xs text-slate-400 mt-0.5">PDF or DOCX • Generates role-specific questions</p>
@@ -346,8 +353,8 @@ export default function InterviewCoach() {
         </div>
         <button onClick={handleGenerate} disabled={loading} className="btn-primary">
           {loading
-            ? <><span className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />Generating…</>
-            : "✨ Generate Interview Questions"}
+            ? <><Loader2 className="w-4 h-4 animate-spin" />Generating…</>
+            : <><Sparkles className="w-4 h-4" />Generate Interview Questions</>}
         </button>
       </div>
 
@@ -404,7 +411,9 @@ export default function InterviewCoach() {
 
           {/* Mock interview CTA */}
           <div className="rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-5 bg-gradient-to-br from-rose-50 via-pink-50 to-orange-50 border border-rose-200/60">
-            <div className="text-4xl flex-shrink-0">🎤</div>
+            <div className="w-12 h-12 rounded-2xl bg-rose-100 flex items-center justify-center flex-shrink-0">
+              <Mic2 className="w-6 h-6 text-rose-500" />
+            </div>
             <div className="text-center sm:text-left flex-1">
               <h3 className="font-bold text-slate-900 text-base">Ready to practice?</h3>
               <p className="text-sm text-slate-500 mt-0.5 leading-relaxed">Start mock interview mode — answer questions and get instant scoring with detailed feedback.</p>
@@ -420,13 +429,15 @@ export default function InterviewCoach() {
       {/* Empty state */}
       {!generated && !loading && (
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {[
-            { icon: "💼", title: "HR Questions",         desc: "Career goals, salary, culture fit, motivations" },
-            { icon: "⚙️", title: "Technical Questions",  desc: "Role-specific skills from your resume & JD" },
-            { icon: "🌟", title: "Behavioral Questions", desc: "STAR-format situational questions with sample answers" },
-          ].map(({ icon, title, desc }) => (
+          {([
+            { Icon: Briefcase, title: "HR Questions",         desc: "Career goals, salary, culture fit, motivations",        bg: "bg-blue-50",    ic: "text-blue-500"    },
+            { Icon: Code2,     title: "Technical Questions",  desc: "Role-specific skills from your resume & JD",            bg: "bg-violet-50",  ic: "text-violet-500"  },
+            { Icon: Star,      title: "Behavioral Questions", desc: "STAR-format situational questions with sample answers",  bg: "bg-emerald-50", ic: "text-emerald-500" },
+          ] as const).map(({ Icon, title, desc, bg, ic }) => (
             <div key={title} className="card-base card-hover p-6 text-center">
-              <div className="text-3xl mb-3">{icon}</div>
+              <div className={`w-12 h-12 rounded-2xl ${bg} flex items-center justify-center mx-auto mb-3`}>
+                <Icon className={`w-6 h-6 ${ic}`} />
+              </div>
               <p className="text-sm font-semibold text-slate-800">{title}</p>
               <p className="text-xs text-slate-400 mt-1.5 leading-relaxed">{desc}</p>
             </div>

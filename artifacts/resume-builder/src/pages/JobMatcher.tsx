@@ -2,7 +2,7 @@ import { useState, useCallback, useRef } from "react";
 import {
   Upload, Key, Wrench, CalendarDays, Bot, CheckCircle2,
   XCircle, RotateCcw, Loader2, ArrowRight, TrendingUp,
-  FileText, Lightbulb, Plus,
+  FileText, Lightbulb, Plus, Target,
 } from "lucide-react";
 import { extractText } from "../lib/extractor";
 import { analyzeJobMatch, JDAnalysisResult } from "../lib/jdAnalyzer";
